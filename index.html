@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="lmnaid" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="theme-color" content="#0a0a0c" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+    <title>lmnaid</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              primary: {
+                DEFAULT: 'rgb(var(--color-primary) / <alpha-value>)',
+                hover: 'rgb(var(--color-primary-hover) / <alpha-value>)',
+              },
+              accent: {
+                DEFAULT: 'rgb(var(--color-accent) / <alpha-value>)',
+              },
+              bg: {
+                main: 'rgb(var(--color-bg-main) / <alpha-value>)',
+                surface: 'rgb(var(--color-bg-surface) / <alpha-value>)',
+                secondary: 'rgb(var(--color-bg-secondary) / <alpha-value>)',
+              }
+            },
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              mono: ['JetBrains Mono', 'monospace'],
+            },
+            animation: {
+              'pulse-soft': 'pulseSoft 4s infinite ease-in-out',
+              'float': 'float 6s infinite ease-in-out',
+              'pulse-glow': 'pulseGlow 4s infinite ease-in-out',
+              'fade-in': 'fadeIn 0.3s ease-out forwards',
+              'fade-in-up': 'fadeInUp 0.4s ease-out forwards',
+              'slide-in-right': 'slideInRight 0.3s ease-out forwards',
+            },
+            keyframes: {
+              pulseSoft: { '0%, 100%': { opacity: '1' }, '50%': { opacity: '0.6' } },
+              float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-10px)' } },
+              pulseGlow: { '0%, 100%': { opacity: '0.1' }, '50%': { opacity: '0.2' } },
+              fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
+              fadeInUp: { '0%': { opacity: '0', transform: 'translateY(10px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+              slideInRight: { '0%': { transform: 'translateX(100%)' }, '100%': { transform: 'translateX(0)' } }
+            }
+          }
+        }
+      }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        /* Default Purple Theme - Smoother values */
+        --color-primary: 192 132 252;
+        --color-primary-hover: 168 85 247; 
+        --color-accent: 250 204 21;
+        
+        /* Modern Deep Dark Theme Base */
+        --color-bg-main: 10 10 12;         
+        --color-bg-surface: 27 28 32;   
+        --color-bg-secondary: 35 37 43; 
+      }
+
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: rgb(var(--color-bg-main));
+        color: #e4e4e7; /* zinc-200 */
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        height: 100vh;
+        height: 100dvh;
+        width: 100vw;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+      }
+
+      /* iOS Safe Area Insets */
+      .safe-top { padding-top: env(safe-area-inset-top, 0px); }
+      .safe-bottom { padding-bottom: env(safe-area-inset-bottom, 0px); }
+      .safe-left { padding-left: env(safe-area-inset-left, 0px); }
+      .safe-right { padding-right: env(safe-area-inset-right, 0px); }
+
+      /* Mobile touch targets - minimum 44px */
+      @media (max-width: 767px) {
+        .touch-target { min-width: 44px; min-height: 44px; }
+        
+        /* Prevent iOS bounce scroll on fixed elements */
+        .no-bounce { overscroll-behavior: none; }
+
+        /* Bottom nav safe area */
+        .bottom-nav {
+          padding-bottom: max(0.75rem, env(safe-area-inset-bottom, 0.75rem));
+        }
+      }
+
+      /* Use dvh for mobile viewport */
+      #root {
+        height: 100dvh;
+      }
+
+      /* Subtle Radial Gradient for Depth (No Noise) */
+      body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        background: 
+          radial-gradient(circle at 15% 50%, rgba(var(--color-primary), 0.08) 0%, transparent 40%),
+          radial-gradient(circle at 85% 30%, rgba(var(--color-accent), 0.05) 0%, transparent 40%);
+        opacity: 1;
+        pointer-events: none;
+      }
+
+      /* Ultra-thin Scrollbar Styling */
+      ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 9999px;
+        border: 2px solid transparent;
+        background-clip: content-box;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background-color: rgba(255, 255, 255, 0.15);
+      }
+      
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background-color: transparent;
+      }
+
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        height: 100dvh;
+        z-index: 1;
+      }
+
+      /* High Fidelity Glass Components */
+      .nebula-glass {
+        background: rgba(18, 18, 21, 0.95);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      }
+
+      .glass-panel {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.03);
+      }
+      
+      .glass-input {
+        background: rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        color: white;
+        transition: all 0.2s ease;
+      }
+      .glass-input:focus {
+        border-color: rgba(var(--color-primary), 0.5);
+        background: rgba(0, 0, 0, 0.4);
+        box-shadow: 0 0 0 2px rgba(var(--color-primary), 0.1);
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 0.6rem 1.25rem;
+        border-radius: 0.75rem;
+        font-weight: 700;
+        font-size: 0.875rem;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        cursor: pointer;
+        border: 1px solid transparent;
+        white-space: nowrap;
+        letter-spacing: 0.025em;
+      }
+
+      .btn-primary {
+        background-color: rgb(var(--color-primary));
+        color: white;
+        box-shadow: 0 4px 12px -4px rgba(var(--color-primary), 0.4);
+      }
+      .btn-primary:hover {
+        background-color: rgb(var(--color-primary-hover));
+        transform: translateY(-1px);
+        box-shadow: 0 6px 16px -4px rgba(var(--color-primary), 0.5);
+      }
+      .btn-primary:active {
+        transform: translateY(0);
+        box-shadow: none;
+      }
+      
+      .btn-glass {
+        background: rgba(255,255,255,0.03);
+        color: #e4e4e7;
+        border: 1px solid rgba(255,255,255,0.03);
+      }
+      .btn-glass:hover {
+        background: rgba(255,255,255,0.08);
+        color: white;
+      }
+      
+      .btn-secondary {
+        background: #27272a;
+        color: #e4e4e7;
+      }
+      .btn-secondary:hover {
+        background: #3f3f46;
+        color: white;
+      }
+
+      /* Focus visible for keyboard navigation (accessibility) */
+      *:focus-visible {
+        outline: 2px solid rgb(var(--color-primary));
+        outline-offset: 2px;
+        border-radius: 4px;
+      }
+
+      /* Remove focus outline for mouse users */
+      *:focus:not(:focus-visible) {
+        outline: none;
+      }
+
+      /* Smooth page transition base */
+      .view-transition {
+        animation: viewFadeIn 0.25s ease-out;
+      }
+      @keyframes viewFadeIn {
+        from { opacity: 0; transform: translateY(6px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      /* Skeleton loading shimmer */
+      .skeleton {
+        background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0.03) 75%);
+        background-size: 200% 100%;
+        animation: shimmer 1.5s infinite ease-in-out;
+        border-radius: 8px;
+      }
+      @keyframes shimmer {
+        0% { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
+      }
+
+      /* Haptic feedback class (visual bounce for touch) */
+      @media (max-width: 767px) {
+        .haptic:active {
+          transform: scale(0.97);
+          transition: transform 0.1s ease;
+        }
+      }
+
+      /* Better active states for buttons on mobile */
+      @media (max-width: 767px) {
+        .btn:active, button:active {
+          opacity: 0.85;
+        }
+      }
+
+      /* Prevent text selection on interactive elements */
+      button, [role="button"], nav, .touch-target {
+        -webkit-user-select: none;
+        user-select: none;
+      }
+
+      /* Smooth momentum scrolling on iOS */
+      .scroll-smooth-ios {
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior-y: contain;
+      }
+    </style>
+    <script type="importmap">
+    {
+      "imports": {
+        "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
+        "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+        "react-dom": "https://esm.sh/react-dom@^19.2.3",
+        "@google/genai": "https://esm.sh/@google/genai@^1.34.0",
+        "react": "https://esm.sh/react@^19.2.3",
+        "react/": "https://esm.sh/react@^19.2.3/",
+        "framer-motion": "https://esm.sh/framer-motion@^12.23.26"
+      }
+    }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>

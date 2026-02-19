@@ -1,0 +1,8 @@
+ignoredBuiltDependencies:
+  - '@ffmpeg-installer/linux-x64'
+  - better-sqlite3
+  - electron
+  - electron-winstaller
+  - esbuild
+  - lzma-native
+  - protobufjs

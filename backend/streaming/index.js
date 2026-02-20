@@ -62,13 +62,14 @@ class StreamingManager {
     // 3. RTMP/Node Media Server (optional, for external tools like OBS)
     if (this.options.enableRTMP) {
       try {
-        const StreamingServer = require('./streamingServer');
+        const { StreamingServer } = require('./streamingServer');
         const streamingServer = new StreamingServer();
         this.nms = streamingServer.init();
         this.nms.run();
         console.log('[StreamingManager] ✓ RTMP/HLS service ready (port 1935)');
       } catch (err) {
         console.error('[StreamingManager] ✗ RTMP service failed:', err.message);
+        console.error('[StreamingManager] Stack:', err.stack);
       }
     } else {
       console.log('[StreamingManager] ⊘ RTMP disabled (set enableRTMP: true to enable)');

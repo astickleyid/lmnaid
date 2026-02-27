@@ -4,8 +4,6 @@
 
 A high-fidelity social networking platform with native desktop app, real-time streaming, and AI-powered features. Built with React, TypeScript, Electron, and powered by Google's Gemini AI.
 
-View your app in AI Studio: https://ai.studio/apps/drive/1nKpc_GKeiJhJfBjiIQy8c9UC0UJC_UZ2
-
 ## ✨ Features
 
 ### Core Platform

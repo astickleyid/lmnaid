@@ -1,8 +1,6 @@
 
-# lmnaid - Social Networking Dashboard & Native Desktop App
+# nXcor [lmnaid] - Social Networking Dashboard & Native Desktop App
 
-[![CI](https://github.com/astickleyid/nXcor/actions/workflows/ci.yml/badge.svg)](https://github.com/astickleyid/nXcor/actions/workflows/ci.yml)
-[![Deploy Production](https://github.com/astickleyid/nXcor/actions/workflows/deploy-production.yml/badge.svg)](https://github.com/astickleyid/nXcor/actions/workflows/deploy-production.yml)
 
 A high-fidelity social networking platform with native desktop app, real-time streaming, and AI-powered features. Built with React, TypeScript, Electron, and powered by Google's Gemini AI.
 
